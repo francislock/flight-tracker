@@ -91,15 +91,15 @@ function FlightCard({ flight }: { flight: Flight }) {
                     </span>
                 </div>
 
-                <div className="flex justify-between items-start relative">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-start relative gap-8 md:gap-0">
                     {/* Origin */}
-                    <div className="text-left flex-1">
+                    <div className="text-center md:text-left flex-1 w-full md:w-auto">
                         <div className="text-4xl font-black text-gray-900 dark:text-white mb-1">{flight.origin.code}</div>
                         <div className="text-sm text-gray-500 font-medium">{flight.origin.city}</div>
 
                         {/* Terminal & Gate */}
                         {(flight.origin.terminal || flight.origin.gate) && (
-                            <div className="mt-1 flex gap-2 text-xs">
+                            <div className="mt-1 flex gap-2 text-xs justify-center md:justify-start">
                                 {flight.origin.terminal && (
                                     <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-0.5 rounded">
                                         Terminal {flight.origin.terminal}
@@ -133,12 +133,14 @@ function FlightCard({ flight }: { flight: Flight }) {
 
                         {/* Origin Weather */}
                         {!weatherLoading && originWeather && (
-                            <WeatherDisplay weather={originWeather} location={flight.origin.city} />
+                            <div className="flex justify-center md:justify-start w-full">
+                                <WeatherDisplay weather={originWeather} location={flight.origin.city} />
+                            </div>
                         )}
                     </div>
 
-                    {/* Flight Path Visual */}
-                    <div className="flex-1 flex flex-col items-center px-4 pt-4">
+                    {/* Flight Path Visual - Hidden on mobile, visible on md+ */}
+                    <div className="hidden md:flex flex-1 flex-col items-center px-4 pt-4">
                         {flight.aircraft && (
                             <div className="text-xs text-gray-400 mb-2 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">
                                 {flight.aircraft.type}
@@ -152,14 +154,23 @@ function FlightCard({ flight }: { flight: Flight }) {
                         </div>
                     </div>
 
+                    {/* Mobile Flight Indicator (Vertical) */}
+                    <div className="md:hidden flex flex-col items-center gap-2 opacity-50">
+                        <div className="w-[2px] h-8 bg-gradient-to-b from-blue-500 to-purple-500"></div>
+                        <div className="bg-white dark:bg-gray-800 p-1 rounded-full border border-gray-200 dark:border-gray-700 rotate-90">
+                            ✈️
+                        </div>
+                        <div className="w-[2px] h-8 bg-gradient-to-b from-purple-500 to-pink-500"></div>
+                    </div>
+
                     {/* Destination */}
-                    <div className="text-right flex-1">
+                    <div className="text-center md:text-right flex-1 w-full md:w-auto">
                         <div className="text-4xl font-black text-gray-900 dark:text-white mb-1">{flight.destination.code}</div>
                         <div className="text-sm text-gray-500 font-medium">{flight.destination.city}</div>
 
                         {/* Terminal, Gate & Baggage */}
                         {(flight.destination.terminal || flight.destination.gate || flight.destination.baggage) && (
-                            <div className="mt-1 flex gap-2 justify-end text-xs flex-wrap">
+                            <div className="mt-1 flex gap-2 justify-center md:justify-end text-xs flex-wrap">
                                 {flight.destination.terminal && (
                                     <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 px-2 py-0.5 rounded">
                                         Terminal {flight.destination.terminal}
@@ -198,13 +209,15 @@ function FlightCard({ flight }: { flight: Flight }) {
 
                         {/* Destination Weather */}
                         {!weatherLoading && destinationWeather && (
-                            <WeatherDisplay weather={destinationWeather} location={flight.destination.city} />
+                            <div className="flex justify-center md:justify-end w-full">
+                                <WeatherDisplay weather={destinationWeather} location={flight.destination.city} />
+                            </div>
                         )}
                     </div>
                 </div>
 
                 {/* Map Toggle Button */}
-                <div className="mt-6 flex justify-center gap-3">
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
                     <button
                         onClick={(e) => {
                             e.preventDefault();
