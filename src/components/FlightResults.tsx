@@ -74,7 +74,7 @@ function FlightCard({ flight }: { flight: Flight }) {
             className="block no-underline"
         >
             <div
-                className="relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-6 transition-all hover:shadow-2xl hover:scale-[1.02] cursor-pointer"
+                className="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700 p-6 transition-all hover:shadow-2xl hover:scale-[1.02] cursor-pointer"
             >
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
 
@@ -204,7 +204,7 @@ function FlightCard({ flight }: { flight: Flight }) {
                 </div>
 
                 {/* Map Toggle Button */}
-                <div className="mt-6 flex justify-center">
+                <div className="mt-6 flex justify-center gap-3">
                     <button
                         onClick={(e) => {
                             e.preventDefault();
@@ -215,6 +215,11 @@ function FlightCard({ flight }: { flight: Flight }) {
                     >
                         <span>{showMap ? '🗺️ Hide Map' : '🗺️ View Flight Path'}</span>
                     </button>
+
+                    <div className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-6 py-2 rounded-lg font-semibold transition-all duration-200 shadow-sm hover:bg-gray-200 dark:hover:bg-gray-600 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20">
+                        <span>📅</span>
+                        <span>Save to Calendar</span>
+                    </div>
                 </div>
 
                 {/* Map */}
